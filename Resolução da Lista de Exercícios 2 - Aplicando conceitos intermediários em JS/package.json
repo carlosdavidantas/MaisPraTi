@@ -1,0 +1,14 @@
+{
+  "name": "lista2",
+  "version": "1.0.0",
+  "main": "01.js",
+  "scripts": {
+    "start": "node 01.js && node 02.js && node 03.js && node 04.js && node 05.js && node 06.js && node 07.js && node 08.js && node 09.js"
+  },
+  "author": "Carlos Davi Dantas",
+  "license": "MIT",
+  "description": "Exercise List 2",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
