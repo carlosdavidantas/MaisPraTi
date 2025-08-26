@@ -1,0 +1,140 @@
+:root {
+  --background-color: #181818;
+  --text-color: #F7F7F7;
+  --primary-color: #202020;
+  --secondary-color: #be2c00;
+  --hover-color: #FFEB3B;
+  --border: 5px;
+}
+body {
+  background-color: var(--background-color);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-background {
+  background-color: transparent;
+  width: 95vw;
+  height: 95vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.search-section {
+  background-color: transparent;
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+h1{
+  font-size: x-large;
+  color: var(--text-color);
+}
+
+.search-input-background {
+  background-color: var(--secondary-color);
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: var(--border);
+} 
+
+.search-input {
+  background-color: transparent;
+  width: 95%;
+  font-size: large;
+  color: var(--text-color);
+  border-radius: var(--border);
+  border-color: transparent;
+  outline: none;
+}
+
+.search-button {
+  background-color: transparent;
+  border-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  box-shadow: none;
+}
+
+.search-button:hover {  
+  cursor: pointer;
+}
+
+.search-results {
+  background-color: var(--primary-color);
+  width: 100%;
+  height: 50%;
+  border-radius: var(--border);
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  list-style: none;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-color) var(--primary-color);
+}
+
+.search-pages-background {
+  background-color: transparent;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-page-field {
+  background-color: transparent;
+  width: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.favorites-section {
+  background-color: transparent;
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.page-button {
+  background-color: transparent;
+  border-radius: var(--border);
+  border-color: transparent;
+  color: var(--secondary-color);
+}
+
+.page-button:hover {
+  cursor: pointer;
+}
+
+.page-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.search-page-number {
+  color: var(--text-color)
+}
+
+.favorites {
+  background-color: var(--primary-color);
+  width: 100%;
+  height: 90%;
+  border-radius: var(--border);
+}
