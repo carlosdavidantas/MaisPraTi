@@ -1,29 +1,65 @@
-import "../reset.css";
-import "./Home.css";
+import { useState, useEffect } from "react";
+
 import { VscSearch } from "react-icons/vsc";
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
-import { useState } from "react";
+
 import { getMovies } from "../../services/tmdbAPI.js";
-import FilmItem from "../../components/filmItem/filmItem.jsx";
+import { getJsonFilmsOnLocalStorage } from "../../utils/localstorageHandler.js";
+
+import FilmResultItem from "../../components/filmResultItem/filmResultItem.jsx";
+import FilmFavoriteItem from "../../components/filmFavoriteItem/filmFavoriteItem.jsx";
+
+import "../reset.css";
+import "./Home.css";
+
 
 function Home() {
-  const [searchContent, setSearchContent] = useState("");
-  const [movies, setMovies] = useState([]);
-  const [searchPageNumber, setSearchPageNumber] = useState([0, 0]);
+  const [userQuery, setuserQuery] = useState("");
+  const [userQuerySearchResults, setUserQuerySearchResults] = useState([]);
+  const [pages, setPages] = useState([0, 0]);
   const [pagesContent, setPagesContent] = useState([]);
 
+  const [favorites, setFavorites] = useState([]);
+
+  function updateSeachResults(newResultsState) {
+    setUserQuerySearchResults(newResultsState);
+  }
+
+  function updateFavorites() {
+    const jsonFavMovies = getJsonFilmsOnLocalStorage();
+    const favMovies = jsonFavMovies ? JSON.parse(jsonFavMovies) : [];
+    setFavorites(favMovies);
+    setUserQuerySearchResults(userQuerySearchResults);
+  }
+
   async function fetchMovies(page = 1) {
-    const response = await getMovies(searchContent, page);
-    setSearchPageNumber([response.page, response.total_pages]);
+    const response = await getMovies(userQuery, page);
+    setPages([response.page, response.total_pages]);
 
     const results = response.results.sort((a, b) =>
       b.release_date.localeCompare(a.release_date)
     );
 
+    results.forEach(movie => movie.isFavorite = false);
+
+    const moviesWithFavorite = [...results];
+
+    for(let i = 0; i < results.length; i++ ){
+      for(let j = 0; j < favorites.length; j++) {
+        if(results[i].id == favorites[j].id){
+          moviesWithFavorite[i].isFavorite = true;
+        }
+      }
+    }
+
     setPagesContent([...pagesContent, response]);
-    setMovies(results);
+    setUserQuerySearchResults(moviesWithFavorite);
   }
+
+  useEffect(() => {
+    updateFavorites();
+  }, []);
 
   return (
     <section className="home-background">
@@ -32,11 +68,11 @@ function Home() {
         <div className="search-input-background">
           <input
             className="search-input"
-            value={searchContent}
-            onChange={event => setSearchContent(event.target.value)}
+            value={userQuery}
+            onChange={event => setuserQuery(event.target.value)}
             onKeyDown={
               event => {
-                if (event.key === "Enter" && searchContent.trim() != "") {
+                if (event.key === "Enter" && userQuery.trim() != "") {
                   fetchMovies();
                 }
               }
@@ -51,13 +87,11 @@ function Home() {
         </div>
 
         <ul className="search-results">
-          {movies.map(movie => (
+          {userQuerySearchResults.map(movie => (
             <li key={movie.id}>
-              <FilmItem
-                title={movie.title}
-                year={movie.release_date?.slice(0, 4)}
-                poster={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                onDetails={() => {/* ação ao clicar */ }}
+              <FilmResultItem
+                data={movie}
+                updateFavorites={updateFavorites}
               />
             </li>
           ))}
@@ -67,12 +101,12 @@ function Home() {
             <button
               className="page-button"
               onClick={() => {
-                if (searchPageNumber[0] > 1) {
-                  if (pagesContent[searchPageNumber[0] - 1] !== undefined) {
-                    setSearchPageNumber([searchPageNumber[0] - 1, searchPageNumber[1]]);
-                    setMovies(pagesContent[searchPageNumber[0] - 2].results);
+                if (pages[0] > 1) {
+                  if (pagesContent[pages[0] - 1] !== undefined) {
+                    setPages([pages[0] - 1, pages[1]]);
+                    setUserQuerySearchResults(pagesContent[pages[0] - 2].results);
                   } else {
-                    fetchMovies(searchPageNumber[0] - 1);
+                    fetchMovies(pages[0] - 1);
                   }
                 }
               }}
@@ -80,17 +114,17 @@ function Home() {
               <GrFormPrevious className="page-icon" />
             </button>
 
-            <p className="search-page-number">{searchPageNumber[0]} / {searchPageNumber[1]}</p>
+            <p className="search-page-number">{pages[0]} / {pages[1]}</p>
 
             <button
               className="page-button"
               onClick={() => {
-                if (searchPageNumber[0] < searchPageNumber[1]) // true
-                  if (pagesContent[searchPageNumber[0]] !== undefined) {
-                    setSearchPageNumber([searchPageNumber[0] + 1, searchPageNumber[1]]);
-                    setMovies(pagesContent[searchPageNumber[0]].results);
+                if (pages[0] < pages[1]) // true
+                  if (pagesContent[pages[0]] !== undefined) {
+                    setPages([pages[0] + 1, pages[1]]);
+                    setUserQuerySearchResults(pagesContent[pages[0]].results);
                   } else {
-                    fetchMovies(searchPageNumber[0] + 1);
+                    fetchMovies(pages[0] + 1);
                   }
 
               }}
@@ -104,7 +138,18 @@ function Home() {
 
       <section className="favorites-section">
         <h1>Favoritos</h1>
-        <ul className="favorites" />
+        <ul className="favorites">
+          {favorites.map(favMovie => (
+            <li key={favMovie.id}>
+              <FilmFavoriteItem
+                data={favMovie}
+                userQuerySearchResults={userQuerySearchResults}
+                updateFavorites={updateFavorites}
+                updateSeachResults={updateSeachResults}
+              />
+            </li>
+          ))}
+        </ul>
       </section>
     </section>
   );
