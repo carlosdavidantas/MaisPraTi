@@ -4,7 +4,7 @@ import { MdFavorite } from "react-icons/md";
 import "./filmResultItem.css";
 import { setFilmOnLocalStorage, deleteFilmOnLocalStorage } from "../../utils/localstorageHandler.js";
 
-function FilmResultItem({ data, updateFavorites}) {
+function FilmResultItem({ data, updateFavorites, setIsCompleteFilmInfoModal, setCompleteFilmData }) {
     const [isFavorite, setIsFavorite] = useState(data.isFavorite);
     
     const toggleFavorite = () => {
@@ -30,7 +30,16 @@ function FilmResultItem({ data, updateFavorites}) {
                 <p className="title">{data.title}</p>
                 <p className="year">{data.release_date?.slice(0, 4)}</p>
                 <section className="button-background">
-                    <button className="button">Visualizar</button>
+                    <button 
+                        className="button"
+                        onClick={() => {
+                            console.log("executed");
+                            setIsCompleteFilmInfoModal(true);
+                            setCompleteFilmData(data);
+                        }}
+                    >
+                        Visualizar
+                    </button>
 
                     <button
                         className="favorite-button"

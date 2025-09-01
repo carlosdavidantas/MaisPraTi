@@ -1,0 +1,42 @@
+.person-role-background {
+    background-color: rgb(85, 85, 85);
+    width: 124px;
+    height: 186px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.person-role-title {
+    background-color: rgb(85, 85, 85);
+    width: 100%;
+    font-size: small;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    color: black;
+    border-radius: 5px;
+}
+
+.person-role-img-background {
+    background-color: blue;
+    width: 90%;
+    height: 80%;
+}
+
+.person-role-img {
+    width: 100%;
+    height: 100%;
+}
+
+.person-role-name {
+    background-color: rgb(85, 85, 85);
+    width: 100%;
+    font-size: small;
+    display: flex;
+    justify-content: center;
+    color: black;
+    border-radius: 5px;
+}

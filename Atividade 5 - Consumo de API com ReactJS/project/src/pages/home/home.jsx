@@ -9,6 +9,7 @@ import { getJsonFilmsOnLocalStorage } from "../../utils/localstorageHandler.js";
 
 import FilmResultItem from "../../components/filmResultItem/filmResultItem.jsx";
 import FilmFavoriteItem from "../../components/filmFavoriteItem/filmFavoriteItem.jsx";
+import ShowCompleteFilmModal from "../../components/showCompleteFilmModal/showCompleteFilmModal.jsx";
 
 import "../reset.css";
 import "./Home.css";
@@ -21,6 +22,9 @@ function Home() {
   const [pagesContent, setPagesContent] = useState([]);
 
   const [favorites, setFavorites] = useState([]);
+
+  const [isCompleteFilmInfoModal, setIsCompleteFilmInfoModal] = useState(false);
+  const [completeFilmData, setCompleteFilmData] = useState([]);
 
   function updateSeachResults(newResultsState) {
     setUserQuerySearchResults(newResultsState);
@@ -63,6 +67,13 @@ function Home() {
 
   return (
     <section className="home-background">
+      {isCompleteFilmInfoModal && (
+        <ShowCompleteFilmModal 
+          data={completeFilmData}
+          setIsCompleteFilmInfoModal={setIsCompleteFilmInfoModal}
+        />
+      )}
+
       <section className="search-section">
         <h1>Buscador de filmes</h1>
         <div className="search-input-background">
@@ -92,6 +103,8 @@ function Home() {
               <FilmResultItem
                 data={movie}
                 updateFavorites={updateFavorites}
+                setIsCompleteFilmInfoModal={setIsCompleteFilmInfoModal}
+                setCompleteFilmData={setCompleteFilmData}
               />
             </li>
           ))}
@@ -146,6 +159,8 @@ function Home() {
                 userQuerySearchResults={userQuerySearchResults}
                 updateFavorites={updateFavorites}
                 updateSeachResults={updateSeachResults}
+                setIsCompleteFilmInfoModal={setIsCompleteFilmInfoModal}
+                setCompleteFilmData={setCompleteFilmData}
               />
             </li>
           ))}

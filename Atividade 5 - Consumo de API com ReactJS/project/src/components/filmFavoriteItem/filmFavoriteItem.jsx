@@ -2,7 +2,7 @@ import { deleteFilmOnLocalStorage } from "../../utils/localstorageHandler.js";
 import { MdOutlineDelete } from "react-icons/md";
 import "./filmFavoriteItem.css";
 
-function FilmFavoriteItem({ data, userQuerySearchResults, updateFavorites, updateSeachResults }) {
+function FilmFavoriteItem({ data, userQuerySearchResults, updateFavorites, updateSeachResults, setIsCompleteFilmInfoModal, setCompleteFilmData }) {
     return (
         <div className="favorite-item-background">
             <section className="favorite-poster-background">
@@ -42,7 +42,14 @@ function FilmFavoriteItem({ data, userQuerySearchResults, updateFavorites, updat
 
                 <p className="favorite-year">Ano: {data.release_date?.slice(0, 4)}</p>
 
-                <button className="visualize-film-button">
+                <button 
+                    className="visualize-film-button"
+                    onClick={() => {
+                        console.log("executed");
+                        setIsCompleteFilmInfoModal(true);
+                        setCompleteFilmData(data);
+                    }}
+                >
                     Visualizar
                 </button>
             </section>
