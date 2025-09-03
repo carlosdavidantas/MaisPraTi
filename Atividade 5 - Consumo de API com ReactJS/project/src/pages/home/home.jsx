@@ -26,6 +26,8 @@ function Home() {
   const [isCompleteFilmInfoModal, setIsCompleteFilmInfoModal] = useState(false);
   const [completeFilmData, setCompleteFilmData] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   function updateSeachResults(newResultsState) {
     setUserQuerySearchResults(newResultsState);
   }
@@ -38,6 +40,7 @@ function Home() {
   }
 
   async function fetchMovies(page = 1) {
+    setIsLoading(true);
     const response = await getMovies(userQuery, page);
     setPages([response.page, response.total_pages]);
 
@@ -49,9 +52,9 @@ function Home() {
 
     const moviesWithFavorite = [...results];
 
-    for(let i = 0; i < results.length; i++ ){
-      for(let j = 0; j < favorites.length; j++) {
-        if(results[i].id == favorites[j].id){
+    for (let i = 0; i < results.length; i++) {
+      for (let j = 0; j < favorites.length; j++) {
+        if (results[i].id == favorites[j].id) {
           moviesWithFavorite[i].isFavorite = true;
         }
       }
@@ -59,6 +62,7 @@ function Home() {
 
     setPagesContent([...pagesContent, response]);
     setUserQuerySearchResults(moviesWithFavorite);
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -68,7 +72,7 @@ function Home() {
   return (
     <section className="home-background">
       {isCompleteFilmInfoModal && (
-        <ShowCompleteFilmModal 
+        <ShowCompleteFilmModal
           data={completeFilmData}
           setIsCompleteFilmInfoModal={setIsCompleteFilmInfoModal}
         />
@@ -98,16 +102,22 @@ function Home() {
         </div>
 
         <ul className="search-results">
-          {userQuerySearchResults.map(movie => (
-            <li key={movie.id}>
-              <FilmResultItem
-                data={movie}
-                updateFavorites={updateFavorites}
-                setIsCompleteFilmInfoModal={setIsCompleteFilmInfoModal}
-                setCompleteFilmData={setCompleteFilmData}
-              />
+          {isLoading ? (
+            <li className="loading">
+              <div className="spinner"></div>
             </li>
-          ))}
+          ) : (
+            userQuerySearchResults.map(movie => (
+              <li key={movie.id}>
+                <FilmResultItem
+                  data={movie}
+                  updateFavorites={updateFavorites}
+                  setIsCompleteFilmInfoModal={setIsCompleteFilmInfoModal}
+                  setCompleteFilmData={setCompleteFilmData}
+                />
+              </li>
+            ))
+          )}
         </ul>
         <section className="search-pages-background">
           <div className="search-page-field">

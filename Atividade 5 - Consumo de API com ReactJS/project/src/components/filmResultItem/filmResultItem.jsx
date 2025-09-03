@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { MdFavoriteBorder } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
+import { MdImageNotSupported } from "react-icons/md";
 import "./filmResultItem.css";
 import { setFilmOnLocalStorage, deleteFilmOnLocalStorage } from "../../utils/localstorageHandler.js";
 
 function FilmResultItem({ data, updateFavorites, setIsCompleteFilmInfoModal, setCompleteFilmData }) {
     const [isFavorite, setIsFavorite] = useState(data.isFavorite);
-    
+
     const toggleFavorite = () => {
         if (isFavorite) {
             deleteFilmOnLocalStorage(data.id);
@@ -25,15 +26,26 @@ function FilmResultItem({ data, updateFavorites, setIsCompleteFilmInfoModal, set
 
     return (
         <div className="film-item-background">
-            <img className="poster" src={`https://image.tmdb.org/t/p/w200${data.poster_path}`} alt={data.title} />
+            {data.poster_path == null ? (
+                <MdImageNotSupported className="person-role-no-poster" size={80} />
+            ) : (
+                <img
+                    className="poster"
+                    src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
+                    alt={data.title}
+                />
+            )}
+            {/* <img className="poster" src={`https://image.tmdb.org/t/p/w200${data.poster_path}`} alt={data.title} /> */}
             <section className="info-background">
-                <p className="title">{data.title}</p>
-                <p className="year">{data.release_date?.slice(0, 4)}</p>
+                <div className="title-and-year">
+                    <p className="title">{data.title}</p>
+                    <p className="year">{data.release_date?.slice(0, 4)}</p>
+                </div>
+
                 <section className="button-background">
-                    <button 
+                    <button
                         className="button"
                         onClick={() => {
-                            console.log("executed");
                             setIsCompleteFilmInfoModal(true);
                             setCompleteFilmData(data);
                         }}

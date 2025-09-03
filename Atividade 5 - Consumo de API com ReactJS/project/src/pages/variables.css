@@ -1,0 +1,30 @@
+:root {
+    --bottom-of-the-page-color: #181818;
+    --primary-color: rgb(37, 37, 37);
+    --secondary-color: rgb(46, 46, 46);
+    --tertiary-color: rgb(55, 55, 55);
+    --fourth-color: #bd2c00;
+    --title-color: #F7F7F7;
+    --paragraph-color: #d8d8d8;
+    --year-text-color: #bdbdbd;
+    --button-text-color: #d4d4d4;
+    --icons-color: white;
+    --border-radius: 8px;
+
+    --home-title-font-size: xx-large;
+    --results-title-font-size: large;
+    --favorite-title-font-size: large;
+
+    --results-button-text-size: smaller;
+    --favorite-button-text-size: medium;
+
+    --year-text-size: x-small;
+    
+    --vizualize-film-text-size: larger;
+    --paragraph-text-size: medium;
+
+    --persons-text-size: smaller;
+
+    --gap: 10px;
+    --margin: 5px;
+}   

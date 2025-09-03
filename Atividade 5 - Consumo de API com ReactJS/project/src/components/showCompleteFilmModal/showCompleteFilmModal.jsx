@@ -8,14 +8,16 @@ function ShowCompleteFilmModal({ data, setIsCompleteFilmInfoModal }) {
     const [castData, setCastData] = useState([]);
     const [productionTeamData, setProductionTeamData] = useState([]);
 
+    const [isLoading, setIsLoading] = useState(false);
+
     useEffect(() => {
+        setIsLoading(true);
         const credits = getCredits(data.id)
         credits.then(result => {
-            console.log(result.cast);
-            console.log(result.crew);
             setCastData(result.cast);
             setProductionTeamData(result.crew);
         });
+        setIsLoading(false);
     }, []);
 
     return (
@@ -46,30 +48,48 @@ function ShowCompleteFilmModal({ data, setIsCompleteFilmInfoModal }) {
                 <section className="cast-background">
                     <h2 className="titles-info">Elenco:</h2>
                     <ul className="cast-list">
-                        {castData.map(person => (
-                            <li key={person.id}>
-                                <PersonRole
-                                    role={person.character}
-                                    poster={person.profile_path}
-                                    name={person.name}
-                                />
+                        {isLoading ? (
+                            <li className="loading">
+                                <div className="spinner"></div>
                             </li>
-                        ))}
+                        ) : (
+                            castData.map(person => (
+                                <li key={person.id}>
+                                    <PersonRole
+                                        role={person.character}
+                                        poster={person.profile_path}
+                                        name={person.name}
+                                    />
+                                </li>
+                            ))
+                        )}
+
+
+
+
+
+
                     </ul>
                 </section>
 
                 <section className="staff-background">
                     <h3 className="titles-info">Produção:</h3>
                     <ul className="staff-list">
-                        {productionTeamData.map(person => (
-                            <li key={person.id}>
-                                <PersonRole
-                                    role={person.job}
-                                    poster={person.profile_path}
-                                    name={person.name}
-                                />
+                        {isLoading ? (
+                            <li className="loading">
+                                <div className="spinner"></div>
                             </li>
-                        ))}
+                        ) : (
+                            productionTeamData.map(person => (
+                                <li key={person.credit_id}>
+                                    <PersonRole
+                                        role={person.job}
+                                        poster={person.profile_path}
+                                        name={person.name}
+                                    />
+                                </li>
+                            ))
+                        )}
                     </ul>
                 </section>
             </section>

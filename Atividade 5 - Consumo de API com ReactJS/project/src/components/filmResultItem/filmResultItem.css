@@ -1,26 +1,20 @@
-:root {
-    --background-color: #181818;
-    --text-color: #F7F7F7;
-    --primary-color: #202020;
-    --secondary-color: #be2c00;
-    --hover-color: #FFEB3B;
-    --border: 5px;
-}
+@import url("../../pages/variables.css");
 
 .film-item-background {
-    background-color: rgb(70, 70, 70);
+    background-color: var(--secondary-color);
     width: 249px;
     height: 150px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    border-radius: var(--border-radius);
 }
 
 .poster {
-    background-color: blue;
     width: 40%;
     height: 100%;
+    border-radius: var(--border-radius) 0px 0px var(--border-radius);
 }
 
 .info-background {
@@ -30,33 +24,41 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-left: 5px;
+    margin-left: var(--margin);
+}
+
+.title-and-year {
+    background-color: transparent;
 }
 
 .title {
-    color: #bdbdbd;
+    color: var(--title-color);
+    margin-bottom: var(--margin);
 }
 
 .year {
-    color: #bdbdbd;
+    font-size: var(--year-text-size);
+    color: var(--year-text-color);
 }
 
 .button-background {
+    background-color: transparent;
     width: 100%;
-    height: 20%;
+    height: 25%;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
 .button {
-    background-color: #202020;
-    width: 50%;
-    height: 100%;
-    border-radius: var(--border);
+    background-color: var(--fourth-color);
+    width: 70%;
+    height: 80%;
+    border-radius: var(--border-radius);
     border-color: transparent;
     border-width: 0px;
-    color: #bdbdbd;
+    color: var(--button-text-color);
+    font-size: var(--results-button-text-size);
 }
 
 .button:hover {
@@ -67,11 +69,12 @@
     background-color: transparent;
     border-color: transparent;
     width: 20%;
-    height: 100%;
+    height: 80%;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #202020;
+    color: var(--icons-color);
+    
 }
 
 .favorite-button:hover {
