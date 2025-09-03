@@ -1,12 +1,56 @@
-# React + Vite
+# Atividade 5 - Consumo de API com ReactJS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto foi desenvolvido como parte do curso **+PraTi**, na **Atividade 5 - Consumo de API com ReactJS**.  
+O objetivo é consumir a API do **The Movie Database (TMDB)** e exibir informações sobre filmes de forma dinâmica.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologias utilizadas
 
-## Expanding the ESLint configuration
+- [React](https://react.dev/)
+- [Vite](https://vitejs.dev/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [TMDB API](https://www.themoviedb.org/documentation/api)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Configuração do ambiente
+
+1. Clone este repositório
+
+2. Navegue até a pasta do projeto
+    ```
+    cd project
+    ```
+3. Instale as dependências
+    ```
+    npm install
+    ```
+
+4. Crie um arquivo **.env** na raiz do projeto, e dentro dele insira:
+    ```
+    VITE_TMDB_API_KEY=your-api-key
+    ```
+
+
+## Executando o projeto
+
+1. Execute em modo de desenvolvimento
+    ```
+    npm run dev
+    ```
+2. Faça build
+    ```
+    npm run build
+    ```
+3. Execute em modo de preview
+    ```
+    npm run preview
+    ```
+
+## Objetivo da atividade
+
+Praticar o consumo de APIs em aplicações **ReactJS**, entendendo como:
+- Realizar requisições HTTP para uma API externa.
+- Gerenciar e exibir os dados recebidos.
+- Organizar o projeto seguindo boas práticas.
