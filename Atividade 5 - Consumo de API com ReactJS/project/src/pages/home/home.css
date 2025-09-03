@@ -28,6 +28,7 @@ body {
   justify-content: space-around;
   align-items: center;
   border-radius: var(--border-radius);
+  box-shadow: 3px 4px 10px rgba(0,0,0,0.5);
 }
 
 h1 {
@@ -134,6 +135,7 @@ h1 {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  box-shadow: 3px 4px 10px rgba(0,0,0,0.5);
 }
 
 .page-button {

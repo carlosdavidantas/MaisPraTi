@@ -60,7 +60,12 @@ function Home() {
       }
     }
 
-    setPagesContent([...pagesContent, response]);
+    if(page == 1) {
+      setPagesContent([response]);
+    } else {
+      setPagesContent([...pagesContent, response]);
+    }
+    
     setUserQuerySearchResults(moviesWithFavorite);
     setIsLoading(false);
   }
