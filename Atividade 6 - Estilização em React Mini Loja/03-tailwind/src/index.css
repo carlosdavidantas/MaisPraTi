@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Custom CSS variables for theming */
+:root {
+  --skeleton-bg: #e2e8f0;
+  --skeleton-highlight: #f1f5f9;
+}
+
+.dark {
+  --skeleton-bg: #475569;
+  --skeleton-highlight: #64748b;
+}
